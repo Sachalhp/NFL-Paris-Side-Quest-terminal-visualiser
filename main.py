@@ -1,17 +1,31 @@
 """
 Coach's Film Room  --  an interactive NFL play viewer for your terminal.
 
-Pick a game, pick a play (or watch the whole game back-to-back), and see all
-22 players move on the field. A side panel gives the coach's read: who
-pressured the quarterback and who got beaten in pass protection.
+Pick a game, pick a play (or watch a whole game back-to-back), and see all 22
+players move on an ASCII football field. Alongside the animation you get:
 
-Built with:
-    textual          the interactive terminal UI (buttons, panels, screens)
-    textual-plotext  draws the football field as a live chart
-    pandas           crunches the data (kept entirely in data.py)
+  * a live QB PRESSURE meter  -> how close the nearest rusher is to the QB,
+                                 computed from the tracking data every frame
+  * a plain-English VERDICT    -> did protection hold, or who got home?
+  * a color-coded ROSTER       -> both line-ups, with the key player flagged
+  * a PLAYER card              -> bio + what each player did on the play
+  * a season LEADERBOARD       -> top pass rushers
+  * play FILTERS               -> jump to the sacks / pressures / 3rd downs
+  * LOAD / ADD data buttons    -> point at a new season, or add one game,
+                                  all from inside the app (no typing paths)
+
+Design: the code is split in two so it stays easy to read --
+    data.py   knows the data   (all the pandas lives there)
+    main.py   shows the data    (this file: the Textual UI)
+
+Built with: textual (UI) + textual-plotext (the field chart) + pandas (data).
 
 Run it with:
     ./venv/bin/python3 main.py
+    ./venv/bin/python3 main.py --data-dir /path/to/another/dataset
+
+Keys: SPACE play/pause . <- -> prev/next play . P jump to pressure .
+      G whole game . L leaderboard . D load data . A add a game . H help . Q quit
 """
 
 from __future__ import annotations
@@ -321,9 +335,9 @@ class FilmRoom(App):
             yield Button("\U0001f4c2 Load new data\u2026", id="load_data_btn", variant="primary")
             yield Button("\u2795 Add a game\u2026", id="add_file_btn", variant="primary")
         yield Static(
-            "Then click a play on the left \u2190   "
-            "SPACE = play/pause   \u2190/\u2192 = prev/next play   "
-            "G = watch whole game   L = leaderboard",
+            "Click a play on the left \u2190   SPACE play/pause   "
+            "\u2190/\u2192 prev/next   P jump to pressure   G whole game   "
+            "L leaderboard   H help",
             id="help",
         )
         with Horizontal(id="body"):

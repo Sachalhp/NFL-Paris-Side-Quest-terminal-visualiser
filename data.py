@@ -241,6 +241,7 @@ def available_game_ids() -> set[int]:
 # GAMES  --  list the games we can animate (FILTER to ones with tracking).
 # ---------------------------------------------------------------------------
 def list_games() -> list[Game]:
+    """The games we can animate: only those we have a tracking file for."""
     df = _games_df()
     have_tracking = available_game_ids()
     df = df[df["gameId"].isin(have_tracking)]  # MOVE 1: filter
@@ -265,6 +266,11 @@ PLAY_FILTERS = ["All plays", "Sacks", "QB pressured", "3rd downs"]
 
 
 def list_plays(game_id: int, limit: int = 80, play_filter: str = "All plays") -> list[Play]:
+    """Playable pass plays for a game, tagged with sack/pressure and filtered.
+
+    `play_filter` is one of PLAY_FILTERS (All plays / Sacks / QB pressured /
+    3rd downs) so a coach can jump straight to the film worth watching.
+    """
     plays = _plays_df()
     track = _tracking_df(game_id)
     pff = _pff_df()
@@ -318,6 +324,11 @@ def list_plays(game_id: int, limit: int = 80, play_filter: str = "All plays") ->
 # This is the heart of the "cool" feature.
 # ---------------------------------------------------------------------------
 def load_play_frames(game_id: int, play_id: int) -> list[Frame]:
+    """Turn one play's tracking rows into an ordered list of Frames to animate.
+
+    Each Frame holds every player's position, the ball, any tagged event, and
+    the live QB-pressure score for that moment. This is the heart of the app.
+    """
     track = _tracking_df(game_id)
 
     # Which team is on offense? We color dots by offense/defense, not home/away.
