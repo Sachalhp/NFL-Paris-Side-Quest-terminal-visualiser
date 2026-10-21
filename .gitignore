@@ -1,0 +1,15 @@
+# Virtual environment
+venv/
+.venv/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# The dataset is large (and not ours to redistribute). Keep the small
+# metadata CSVs if you like, but never commit the big tracking files.
+data/tracking/*.csv
+
+# OS cruft
+.DS_Store
