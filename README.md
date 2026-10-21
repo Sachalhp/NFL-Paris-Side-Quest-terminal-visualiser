@@ -1,5 +1,25 @@
 # 🏈 Coach's Film Room
 
+## ▶️ Run it in 30 seconds (copy-paste this)
+
+The repo ships with two real NFL games, so it works immediately, no downloads.
+
+```bash
+git clone https://github.com/YOUR_USERNAME/coachs-film-room.git
+cd coachs-film-room
+python3 -m venv venv && ./venv/bin/pip install -r requirements.txt
+./venv/bin/python3 main.py
+```
+
+Then: **pick a game** (top dropdown) → **click a play** on the left →
+press **▶ Play**. To see the signature feature, filter the list to **Sacks**,
+open one, and hit **⚡ Jump to pressure** to watch the QB Pressure meter spike.
+
+> Use a wide, maximized terminal (3 columns: play list · field · roster).
+> Full key list is in the welcome screen (press `H` anytime).
+
+---
+
 ## The insight (the short version)
 
 Raw NFL tracking data is just millions of (x, y) coordinates that no coach,
