@@ -5,8 +5,8 @@ Raw NFL tracking data is millions of (x, y) coordinates that no coach, journalis
 ## ▶️ Run it (ships with 2 real games, works immediately)
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/coachs-film-room.git
-cd coachs-film-room
+git clone https://github.com/Sachalhp/NFL-Paris-Side-Quest-terminal-visualiser.git
+cd NFL-Paris-Side-Quest-terminal-visualiser
 python3 -m venv venv && ./venv/bin/pip install -r requirements.txt
 ./venv/bin/python3 main.py
 ```
